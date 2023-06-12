@@ -17,6 +17,7 @@ def storage_layout():
     window = gui.Window("Physical space dimensions", layout)
     return window
 
+
 def storage_input():
     '''#this creates the layout of the window
     layout = [ [gui.Text("PLEASE INPUT ALL MEASUREMENTS AS CM")],
@@ -61,8 +62,12 @@ def storage_input():
                 if confirm_event == 'Confirm':
                     cd_round = storage_dict['width']//1
                     cd_num = cd_round * storage_dict['rows']
-                    return cd_num
-                    pass
+
+                    if storage_dict == None:
+                        break
+                    else:
+                        return cd_num
+                        pass
                 break
 
 
@@ -94,9 +99,8 @@ def storage_input():
 
     window.close()
 
-def position_index(cd_num):
-    for i in range(0, int(cd_num)):
-        pass
+def cd_attributes(cd_num):
+     
 
 
 print(storage_input())
