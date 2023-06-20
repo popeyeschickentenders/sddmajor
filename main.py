@@ -1,6 +1,10 @@
 import PySimpleGUI as gui
 import time as t
 import keyboard as kb
+import json as js
+
+'''def  temp_num():
+    return 3'''
 
 
 def storage_layout():
@@ -107,24 +111,32 @@ def storage_input():
 
 
 def cd_attributes(cd_num):
-    attr_window = attr_layout()
+    '''print("cd attr ran")'''
+    for i in range(cd_num):
 
-    attr_event, attr_values = attr_window.read()
+        attr_window = attr_layout()
 
+        attr_event, attr_values = attr_window.read()
 
         if attr_event == gui.WIN_CLOSED or attr_event == "Cancel":
             attr_window.close()
+            break
 
         if attr_event == "Enter":
             try:
                 str_album = str(attr_values["alb_name"])
                 str_artist = str(attr_values["artist_name"])
+
+                with open("attr_file", "a") as file:
+                    file.write(js.dumps(attr_values))
+                    file.write("\n")
                 attr_window.close()
+
             except ValueError as v_error:
                 error_layout = [[gui.Text(f"One of your inputs is not valid")],
-                                [gui.Text(f"Error: {v_error}")],
-                                [gui.Text(f"Please re-enter valid inputs")],
-                                [gui.Button("Retry"), gui.Button("Cancel")]
+                            [gui.Text(f"Error: {v_error}")],
+                            [gui.Text(f"Please re-enter valid inputs")],
+                            [gui.Button("Retry"), gui.Button("Cancel")]
                                 ]
 
                 error_window = gui.Window("Error Occurred...", error_layout)
@@ -138,6 +150,8 @@ def cd_attributes(cd_num):
 
                 if error_event == "Retry":
                     pass
+
+        attr_window.close()
 
 
 cd_attributes(storage_input())
