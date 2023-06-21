@@ -123,38 +123,48 @@ def cd_attributes(cd_num):
             break
 
         if attr_event == "Enter":
-            try:
-                str_album = str(attr_values["alb_name"])
-                str_artist = str(attr_values["artist_name"])
+            str_album = str(attr_values["alb_name"])
+            str_artist = str(attr_values["artist_name"])
 
-                with open("attr_file", "a") as file:
-                    file.write(js.dumps(attr_values))
-                    file.write("\n")
-                attr_window.close()
+            with open("attr_file", "a") as file:
+                file.write("[ \n")
+                file.write(js.dumps(attr_values))
+                file.write("\n")
+                file.write("]")
+                file.close()
 
-            except ValueError as v_error:
-                error_layout = [[gui.Text(f"One of your inputs is not valid")],
-                            [gui.Text(f"Error: {v_error}")],
-                            [gui.Text(f"Please re-enter valid inputs")],
-                            [gui.Button("Retry"), gui.Button("Cancel")]
-                                ]
+            attr_window.close()
 
-                error_window = gui.Window("Error Occurred...", error_layout)
-
-                error_event, error_values = error_window.read()
-
-                if error_event == gui.WIN_CLOSED or error_event == "Cancel":
-                    print("window closed?")
-                    error_window.close()
-
-
-                if error_event == "Retry":
-                    pass
 
         attr_window.close()
 
+def sort_artist(file_name):
+    file_open = js.load(open(file_name))
+    artist_list= []
+    for i in file_open:
+        #print(i)
+        dict_value = i["artist_name"]
+        #print(dict_value)
+        artist_list.append((dict_value))
 
-cd_attributes(storage_input())
+    artist_list.sort()
+    print(artist_list)
+
+def sort_album(file_name):
+    file_open = js.load(open(file_name))
+    album_list = []
+    for i in file_open:
+        # print(i)
+        dict_value = i["album_name"]
+        # print(dict_value)
+        album_list.append((dict_value))
+
+    album_list.sort()
+    print(album_list)
+
+
+#cd_attributes(storage_input())
+sort_artist(f"attr_file")
 
 '''def pop_up():
     gui.popup("hello world")
