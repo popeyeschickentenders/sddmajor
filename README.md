@@ -10,4 +10,9 @@ then you can search
 
 have fun 
 
+
+REMINDER:
+have attr_file, album_file, artist file
+the program will NOT create them for you
+
 thank you 
