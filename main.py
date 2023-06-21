@@ -155,7 +155,7 @@ def sort_artist(file_name):
         sorted_output(artist_list)
 
         with open("artist_file", "a") as f:
-            f.write(json.dumps(album_list))
+            f.write(json.dumps(artist_list))
 
     except json.decoder.JSONDecodeError:
         print("Invalid values in file")
@@ -210,6 +210,7 @@ def search_artist():
 
     if event == "Enter":
         file_open = js.load(open("attr_file"))
+        print("file opened successfully")
 
         artist_input = values["artist_input"]
         for i in file_open:
